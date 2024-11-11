@@ -1,6 +1,9 @@
 package com.reliaquest.api.controller;
 
+import java.net.MalformedURLException;
 import java.util.List;
+
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,22 +24,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface IEmployeeController<Entity, Input> {
 
     @GetMapping()
-    ResponseEntity<List<Entity>> getAllEmployees();
+    ResponseEntity<List<Entity>> getAllEmployees() throws MalformedURLException;
 
     @GetMapping("/search/{searchString}")
-    ResponseEntity<List<Entity>> getEmployeesByNameSearch(@PathVariable String searchString);
+    ResponseEntity<List<Entity>> getEmployeesByNameSearch(@PathVariable String searchString) throws MalformedURLException;
 
     @GetMapping("/{id}")
     ResponseEntity<Entity> getEmployeeById(@PathVariable String id);
 
     @GetMapping("/highestSalary")
-    ResponseEntity<Integer> getHighestSalaryOfEmployees();
+    ResponseEntity<Integer> getHighestSalaryOfEmployees() throws MalformedURLException;
 
     @GetMapping("/topTenHighestEarningEmployeeNames")
     ResponseEntity<List<String>> getTopTenHighestEarningEmployeeNames();
 
     @PostMapping()
-    ResponseEntity<Entity> createEmployee(@RequestBody Input employeeInput);
+    ResponseEntity<Entity> createEmployee(@RequestBody Input employeeInput) throws ParseException;
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteEmployeeById(@PathVariable String id);
